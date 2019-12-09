@@ -1,17 +1,13 @@
 const { app, BrowserWindow } = require("electron");
 const { readFileSync } = require("fs");
-const ElectronCookies = require("@exponent/electron-cookies");
 
 const threemaUrl = "https://web.threema.ch/";
 
-ElectronCookies.enable({
-  origin: threemaUrl
-});
-
 function createWindow() {
   let window = new BrowserWindow({
-    width: 400,
+    width: 500,
     height: 700,
+    icon: __dirname + "/assets/favicon.ico",
     webPreferences: {
       nodeIntegration: false
     },
@@ -21,7 +17,10 @@ function createWindow() {
   window.setMenuBarVisibility(false);
   window.removeMenu();
   window.webContents.on("dom-ready", () => {
-    window.webContents.executeJavaScript(readFileSync("./client.js").toString());
+    window.webContents.executeJavaScript(readFileSync(__dirname + "/client.js").toString());
+  });
+  window.on('page-title-updated', function(e) {
+    e.preventDefault()
   });
   window.loadURL(threemaUrl);
 }

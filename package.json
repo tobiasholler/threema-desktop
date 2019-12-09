@@ -2,9 +2,12 @@
   "name": "threema-desktop",
   "version": "0.1.0",
   "description": "A unofficial Threema client for the desktop.",
-  "main": "main.js",
+  "main": "src/main.js",
   "scripts": {
     "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,9 +22,16 @@
   },
   "homepage": "https://github.com/tobiasholler/threema-desktop#readme",
   "devDependencies": {
-    "electron": "^7.1.3"
+    "electron": "^7.1.3",
+    "electron-builder": "^21.2.0"
   },
-  "dependencies": {
-    "@exponent/electron-cookies": "^2.0.0"
+  "build": {
+    "appId": "com.github.tobiasholler.threema-desktop",
+    "productName": "Threema Desktop",
+    "icon": "assets/icon.png",
+    "files": [
+      "src/*",
+      "assets/*"
+    ]
   }
 }
